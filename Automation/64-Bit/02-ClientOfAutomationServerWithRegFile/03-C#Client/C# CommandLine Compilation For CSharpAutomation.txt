@@ -1,0 +1,14 @@
+- Assuming 64 Bit COM Automation Dll Server, COM Proxy/Stub Dll And TypeLibrary Tlb Are Created And Copied To
+  Windows\System32 And From Here The Proxy/Stub Dll Is Already Registered By RegSvr32 Command.
+
+- Then From Windows\System32\Hosted Tlb File, A DotNet Compliant Dll Is Created Into The C# Source Code directory
+  By Using Following Command In Visual Studio 2013's "64 Bit Native Command Prompt" :
+
+  tlbimp c:\Windows\System32\AutomationServerTypeLib.tlb /out:.\AutomationServerTypeLibForDotNet.dll
+
+- The Resulting DotNet Compliant Dll Is Used In C# Code As Namespace And As Well As On Compiler Command Line 
+  To Create The Executable :
+
+  csc.exe /r:AutomationServerTypeLibForDotNet.dll CSharpAutomation.cs
+
+- Run CSharpAutomation.exe

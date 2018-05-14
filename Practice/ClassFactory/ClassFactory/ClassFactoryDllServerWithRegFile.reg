@@ -1,0 +1,5 @@
+REGEDIT4
+[HKEY_CLASSES_ROOT\CLSID\{DA127FF1-3051-485C-8CF6-1FE22FD7BF1E}]
+@="MyComCFDll"
+[HKEY_CLASSES_ROOT\CLSID\{DA127FF1-3051-485C-8CF6-1FE22FD7BF1E}\InprocServer32]
+@="C:\Users\Sugad.mankar\Desktop\COM\Practice\ClassFactory\CFDllServer\Debug\ClassFactoryDllServerWithRegFile.dll"

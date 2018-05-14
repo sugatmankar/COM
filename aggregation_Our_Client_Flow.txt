@@ -1,0 +1,89 @@
+Client calling CoCreateInstance...
+Outer Component's DLL is ATTACHED.
+DllGetClassObject().
+CSumSubtractClassFactory::CTOR().
+CSumSubtractClassFactory::QueryInterface().
+CSumSubtractClassFactory::AddRef().
+CSumSubtractClassFactory::Release().
+CSumSubtractClassFactory::CreateInstance().
+CSumSubtract::CTOR().
+CSumSubtractClassFactory::CreateInstance(): Calling pCSumSubtract->InitializeInnerComponent.
+CSumSubtract::InitializeInnerComponent(): Calling CoCreateInstance with CLSID_MultiplicationDivision.
+Inner Component's DLL is ATTACHED.
+DllGetClassObject():.
+CMultiplicationDivisionClassFactory::CTOR()
+CMultiplicationDivisionClassFactory::QueryInterface()
+CMultiplicationDivisionClassFactory::AddRef()
+CMultiplicationDivisionClassFactory::Release()
+CMultiplicationDivisionClassFactory::CreateInstance(): pUnkOUter Not NULL
+CMultiplicationDivision: CTOR:.
+CMultiplicationDivision: CTOR:.pIUnknownOuter!=NULL
+CMultiplicationDivision::QI_NoAggreration : <INoAggregationIUnknown *>(this).
+CMultiplicationDivision::AddRef_NoAggregation():
+CMultiplicationDivision::Release_NoAggregation():
+CMultiplicationDivision::AddRef_NoAggregation():
+CMultiplicationDivision::Release_NoAggregation():
+CMultiplicationDivisionClassFactory::Release()
+CMultiplicationDivisionClassFactory::DTOR()
+CMultiplicationDivisionClassFactory::Release() : delete this
+CMultiplicationDivision::QI_NoAggreration : <INoAggregationIUnknown *>(this).
+CMultiplicationDivision::AddRef_NoAggregation():
+CMultiplicationDivision::Release_NoAggregation():
+CSumSubtract::InitializeInnerComponent(): Calling m_pIUnknownInner->QueryInterface: IID_IMultiplication.
+CMultiplicationDivision::QI_NoAggreration : <IMultiplication *>(this).
+CMultiplicationDivision: AR().
+CSumSubtract::AddRef().
+CSumSubtract::InitializeInnerComponent(): Calling m_pIUnknownInner->QueryInterface: IID_IDivision.
+CMultiplicationDivision::QI_NoAggreration : <IDivision *>(this).
+CMultiplicationDivision: AR().
+CSumSubtract::AddRef().
+CSumSubtract::InitializeInnerComponent(): Successfully completed..
+CSumSubtract::QI(): <ISum *>(this).
+CSumSubtract::AddRef().
+CSumSubtract::Release().
+CSumSubtract::AddRef().
+CSumSubtract::Release().
+CSumSubtractClassFactory::Release().
+CSumSubtractClassFactory::DTOR().
+CSumSubtract::QI(): <ISum *>(this).
+CSumSubtract::AddRef().
+CSumSubtract::Release().
+Client calling pISum->SumOfTwoIntegers...
+CSumSubtract::SumOfTwoIntegers().
+Client calling pISum->QueryInterface()
+CSumSubtract::QI(): <ISubtract *>(this).
+CSumSubtract::AddRef().
+Client calling pISum->Release()
+CSumSubtract::Release().
+Client calling pISum->SubtractionOfTwoIntegers()
+CSumSubtract::SubtractionOfTwoIntegers().
+Client calling pISubtract->QueryInterface(IID_IMultiplication)
+CSumSubtract::QI(): IID_IMultiplication: m_pIUnknownInner->QueryInterface(riid,ppv).
+CMultiplicationDivision::QI_NoAggreration : <IMultiplication *>(this).
+CMultiplicationDivision: AR().
+CSumSubtract::AddRef().
+Client calling pISubtract->Release()
+CSumSubtract::Release().
+Client calling pIMultiplication->MultiplicationOfTwoIntegers()
+CMultiplicationDivision::MultiplicationOfTwoIntegers()
+Client calling pIMultiplication->QueryInterface(IID_IDivision)
+CMultiplicationDivision: QI().
+CSumSubtract::QI(): IID_IDivision: m_pIUnknownInner->QueryInterface(riid,ppv).
+CMultiplicationDivision::QI_NoAggreration : <IDivision *>(this).
+CMultiplicationDivision: AR().
+CSumSubtract::AddRef().
+Client calling pIMultiplication->Release()
+CMultiplicationDivision: R().
+CSumSubtract::Release().
+Client calling pIDivision->DivisionOfTwoIntegers()
+CMultiplicationDivision::DivisionOfTwoIntegers()
+Client calling pIDivision->Release()
+CMultiplicationDivision: R().
+CSumSubtract::Release().
+SafeInterfaceRelease().
+DllCanUnloadNow():.
+DllCanUnloadNow(): FAIL
+DllCanUnloadNow().
+DllCanUnloadNow(): FAIL..
+Inner Component's DLL is DETACHED.
+Outer Component's DLL is DETACHED.

@@ -1,0 +1,4 @@
+Do From Visual Studio 2013's 64 Bit Native Command Prompt :
+===========================================================
+
+midl /h AutomationProxyStubHeader.h /iid AutomationProxyStubGuids.c /dlldata AutomationProxyStubDllData.c /proxy AutomationProxyStub.c AutomationServerTypeLib.idl
