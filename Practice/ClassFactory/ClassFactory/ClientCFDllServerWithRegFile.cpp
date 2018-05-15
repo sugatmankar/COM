@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		exit(0);
 	}
 
-	wndclass.cbSize = sizeof(wndclass);
+	wndclass.cbSize = sizeof(WNDCLASSEX);
 	wndclass.style = CS_HREDRAW | CS_VREDRAW;
 	wndclass.cbClsExtra = 0;
 	wndclass.cbWndExtra = 0;
@@ -33,6 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndclass.hInstance = hInstance;
 	wndclass.lpszClassName = AppName;
+	wndclass.lpszMenuName = NULL;
 	wndclass.hIconSm = LoadIcon(NULL,IDI_APPLICATION);
 
 	RegisterClassEx(&wndclass);
@@ -66,6 +67,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT iMsg,WPARAM wParam,LPARAM lParam) {
 		if (FAILED(hr)) {
 			MessageBox(hwnd,TEXT("Failed to obtain ISum interface"),TEXT("ERROR"),MB_OK);
 			DestroyWindow(hwnd);
+			break;
 		}
 		iNum1 = 55;
 		iNum2 = 45;

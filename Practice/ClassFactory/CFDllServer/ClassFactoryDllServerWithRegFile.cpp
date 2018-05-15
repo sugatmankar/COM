@@ -1,5 +1,7 @@
 #include<Windows.h>
 #include"ClassFactoryDllServerWithRegFile.h"
+#include"Registry.h"
+
 
 class CSumSubtract : public ISum, ISubtract {
 private:
@@ -47,15 +49,40 @@ long glNumberOfActiveComponents = 0;
 // number of locks on this dll
 long glNumberOfServerLocks = 0;
 
+//Handle to DLL module
+HMODULE g_hModule = NULL;
+const char g_szFriendleyName[] = "Class Factory server";
+const char g_szVerIndProgID[] = "ClassFactory.Server1";
+const char g_szProgID[] = "ClassFactory.Server1.0";
+
 //DLL Main
-BOOL WINAPI DllMain(HINSTANCE hDll, DWORD dwReason, LPVOID reserved) {
-	switch (dwReason) {
+BOOL WINAPI DllMain(
+	HINSTANCE hinstDLL,  // handle to DLL module
+	DWORD fdwReason,     // reason for calling function
+	LPVOID lpReserved)  // reserved
+{
+	// Perform actions based on the reason for calling.
+	switch (fdwReason)
+	{
 	case DLL_PROCESS_ATTACH:
+		// Initialize once for each new process.
+		g_hModule = hinstDLL;
+		// Return FALSE to fail DLL load.
 		break;
+
+	case DLL_THREAD_ATTACH:
+		// Do thread-specific initialization.
+		break;
+
+	case DLL_THREAD_DETACH:
+		// Do thread-specific cleanup.
+		break;
+
 	case DLL_PROCESS_DETACH:
+		// Perform any necessary cleanup.
 		break;
 	}
-	return(TRUE);
+	return TRUE;  // Successful DLL_PROCESS_ATTACH.
 }
 
 CSumSubtract::CSumSubtract(void)
@@ -211,4 +238,14 @@ HRESULT __stdcall DllCanUnloadNow(void) {
 		return(S_OK);
 	else
 		return(S_FALSE);
+}
+
+HRESULT __stdcall DllRegisterServer() {
+
+	return RegisterServer(g_hModule,CLSID_SumSubtract,g_szFriendleyName,g_szVerIndProgID,g_szProgID);
+
+}
+
+HRESULT __stdcall DllUnRegisterServer() {
+	return UnregisterServer(CLSID_SumSubtract, g_szVerIndProgID, g_szProgID);
 }
