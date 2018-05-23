@@ -1,0 +1,7 @@
+LIBRARY CFDllServer.dll
+EXPORTS
+	DllGetClassObject @100 PRIVATE
+	DllCanUnloadNow @101 PRIVATE
+	DllRegisterServer @102 PRIVATE
+	DllUnRegisterServer @103 PRIVATE
+

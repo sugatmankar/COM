@@ -1,7 +1,9 @@
 #include<Windows.h>
 #include"ClassFactoryDllServerWithRegFile.h"
 #include"Registry.h"
+#include<iostream>
 
+using namespace std;
 
 class CSumSubtract : public ISum, ISubtract {
 private:
@@ -55,12 +57,15 @@ const char g_szFriendleyName[] = "Class Factory server";
 const char g_szVerIndProgID[] = "ClassFactory.Server1";
 const char g_szProgID[] = "ClassFactory.Server1.0";
 
+FILE *gpFile = NULL;
+
 //DLL Main
 BOOL WINAPI DllMain(
 	HINSTANCE hinstDLL,  // handle to DLL module
 	DWORD fdwReason,     // reason for calling function
 	LPVOID lpReserved)  // reserved
 {
+	
 	// Perform actions based on the reason for calling.
 	switch (fdwReason)
 	{
@@ -214,8 +219,13 @@ HRESULT CSumSubtractClassFactory::LockServer(BOOL fLock)
 
 //Implementation of EXPORTED functions
 
-HRESULT __stdcall DllGetClassObject(const IID & clsid, const IID& iid, void **ppv)
+extern "C" HRESULT __stdcall DllGetClassObject(const IID & clsid, const IID & iid, void **ppv)
 {
+	if (fopen_s(&gpFile, "Hello.txt", "w") != 0) {
+		std::cout << "File Can Not Be Created\nExitting ...\n" << std::endl;
+		exit(0);
+	}
+	fprintf(gpFile, "IN DllGetClassObject \n");
 	CSumSubtractClassFactory *pCSumSubtractClassFactory = NULL;
 	HRESULT hr;
 
@@ -229,23 +239,29 @@ HRESULT __stdcall DllGetClassObject(const IID & clsid, const IID& iid, void **pp
 
 	hr = pCSumSubtractClassFactory->QueryInterface(iid, ppv);
 	pCSumSubtractClassFactory->Release();
-
+	fprintf(gpFile, "OUT DllGetClassObject \n");
 	return(hr);
 }
 
-HRESULT __stdcall DllCanUnloadNow(void) {
+extern "C" HRESULT __stdcall DllCanUnloadNow(void) {
+	if (gpFile)
+	{
+		std::cout << "File Is Successfully Closed.\n";
+		fclose(gpFile);
+		gpFile = NULL;
+	}
 	if (glNumberOfActiveComponents == 0 && glNumberOfServerLocks == 0)
 		return(S_OK);
 	else
 		return(S_FALSE);
 }
 
-HRESULT __stdcall DllRegisterServer() {
+extern "C" HRESULT __stdcall DllRegisterServer() {
 
 	return RegisterServer(g_hModule,CLSID_SumSubtract,g_szFriendleyName,g_szVerIndProgID,g_szProgID);
 
 }
 
-HRESULT __stdcall DllUnRegisterServer() {
+extern "C"  HRESULT __stdcall DllUnRegisterServer() {
 	return UnregisterServer(CLSID_SumSubtract, g_szVerIndProgID, g_szProgID);
 }

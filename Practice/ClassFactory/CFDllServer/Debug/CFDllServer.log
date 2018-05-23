@@ -1,0 +1,8 @@
+﻿  Registry.cpp
+  ClassFactoryDllServerWithRegFile.cpp
+  Generating Code...
+deffile : warning LNK4222: exported symbol 'DllGetClassObject' should not be assigned an ordinal
+deffile : warning LNK4222: exported symbol 'DllCanUnloadNow' should not be assigned an ordinal
+deffile : warning LNK4222: exported symbol 'DllRegisterServer' should not be assigned an ordinal
+     Creating library C:\Users\Sugad.mankar\Desktop\COM\Practice\ClassFactory\Debug\CFDllServer.lib and object C:\Users\Sugad.mankar\Desktop\COM\Practice\ClassFactory\Debug\CFDllServer.exp
+  CFDllServer.vcxproj -> C:\Users\Sugad.mankar\Desktop\COM\Practice\ClassFactory\Debug\CFDllServer.dll
