@@ -1,3 +1,5 @@
+#define UNICODE
+
 #include<iostream>
 #include<Unknwn.h>
 
@@ -10,7 +12,13 @@ typedef IUnknown* (*CREATEFUNCTIONPTR)();    //IUnknown* CreateInstance(){}
 IUnknown* CallCreateInstance(char* name)
 {
 	//Load dll into process
-	HINSTANCE hComponent = ::LoadLibrary(name);
+	trace("CallCreateInstance");
+	trace(name);
+	wchar_t wText[40];
+	mbstowcs(wText, name, strlen(name) + 1);
+	LPWSTR ptr = wText;
+	
+	HINSTANCE hComponent = ::LoadLibrary(ptr);
 	if (hComponent == NULL)
 	{
 		trace("CallCreateInstance:: \t Error: Can't Load Component.");

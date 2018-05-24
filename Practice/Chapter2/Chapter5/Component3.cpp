@@ -1,7 +1,5 @@
 // Command to Compile
-// cl.exe /LD Component3.cpp GUIDS.cpp UUID.lib Component3.def
-
-
+// cl.exe /LD /EHsc Component3.cpp Trace.cpp GUIDS.cpp UUID.lib Component3.def
 #include<iostream>
 #include<objbase.h>
 
@@ -83,13 +81,13 @@ HRESULT __stdcall CA::QueryInterface(const IID& iid, void **ppv)
 
 ULONG __stdcall CA::AddRef()
 {
-	fprintf_s(gpFile, "CA::AddRef Refrence Count is %d", m_cRef + 1);
+	fprintf_s(getFilePtr(), "CA::AddRef Refrence Count is %d\n\n", m_cRef + 1);
 	return InterlockedIncrement(&m_cRef);
 }
 
 ULONG __stdcall CA::Release()
 {
-	fprintf_s(gpFile, "CA::Release Refrence Count is %d", m_cRef - 1);
+	fprintf_s(getFilePtr(), "CA::Release Refrence Count is %d\n\n", m_cRef - 1);
 	if (InterlockedDecrement(&m_cRef) == 0)
 	{
 		delete(this);
@@ -105,4 +103,25 @@ extern "C" IUnknown* CreateInstance()
 	IUnknown* pIUnknown = static_cast<IX*>(new CA);
 	pIUnknown->AddRef();
 	return pIUnknown;
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
+{
+	switch (ul_reason_for_call)
+	{
+	case DLL_PROCESS_ATTACH:
+		openLogFile("Component3.txt");
+		break;
+	case DLL_THREAD_ATTACH:
+		break;
+	case DLL_THREAD_DETACH:
+		break;
+	case DLL_PROCESS_DETACH:
+		CloseLogFile();
+		break;
+	}
+	return TRUE;
 }

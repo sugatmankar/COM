@@ -1,5 +1,4 @@
-// To compile, use: cl Client1.cpp Create.cpp GUIDs.cpp UUID.lib
-
+// To compile, use: cl /EHsc Client1.cpp Create.cpp Trace.cpp GUIDs.cpp UUID.lib
 #include<iostream>
 #include<objbase.h>
 

@@ -1,0 +1,18 @@
+Client2: Get an IUnknown Pointer
+
+CallCreateInstance
+
+Component3.dll
+
+Client2: CallCreateInstance Succeeded.
+
+Client2: Get Interface IX
+
+Client2: Succeeded getting IX.
+
+Client2: Get Interface IY
+
+Client2: Succeeded getting IY.
+
+Client2: Release IUnknown
+

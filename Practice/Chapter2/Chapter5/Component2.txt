@@ -1,0 +1,12 @@
+Component2:: 
+
+CA::AddRef Refrence Count is 1CA::QueryInterface Return ptr to IX
+
+CA::AddRef Refrence Count is 2CA::Fx
+
+CA::Release Refrence Count is 1CA::QueryInterface Return ptr to IY
+
+CA::AddRef Refrence Count is 2CA::Fy
+
+CA::Release Refrence Count is 1CA::Release Refrence Count is 0CA: ~CA: Destroy self.
+

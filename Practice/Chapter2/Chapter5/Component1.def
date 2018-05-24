@@ -3,7 +3,6 @@
 ;
 
 LIBRARY Component1.dll
-DESCRIPTION 'Created by Sugad 23/05/2018'
 
 EXPORTS
 			CreateInstance @1 PRIVATE

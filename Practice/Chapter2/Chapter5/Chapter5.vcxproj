@@ -136,6 +136,7 @@
     <ClCompile Include="Component3.cpp" />
     <ClCompile Include="Create.cpp" />
     <ClCompile Include="GUIDS.cpp" />
+    <ClCompile Include="Trace.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

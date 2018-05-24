@@ -1,0 +1,18 @@
+Component1: Create Instance
+
+Component1:: 
+
+CA::AddRef Refrence Count is 1
+
+CA::QueryInterface Return ptr to IX
+
+CA::AddRef Refrence Count is 2
+
+CA::Fx
+
+CA::Release Refrence Count is 1
+
+CA::Release Refrence Count is 0
+
+CA: ~CA: Destroy self.
+

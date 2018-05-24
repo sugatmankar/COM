@@ -1,6 +1,6 @@
 // Command to Compile
-// cl.exe /LD Component1.cpp GUIDS.cpp UUID.lib Component1.def
-
+// cl.exe /LD /EHsc Component1.cpp Trace.cpp GUIDS.cpp UUID.lib /DEF Component1.def 
+#define UNICODE
 
 #include<iostream>
 #include<objbase.h>
@@ -8,10 +8,11 @@
 #include "IFace.h"
 #include "Trace.h"
 
+
 class CA : public IX
 {
 	//IUnknown methods
-	virtual HRESULT __stdcall QueryInterface(const IID& iid,void **ppv);
+	virtual HRESULT __stdcall QueryInterface(const IID& iid, void **ppv);
 	virtual ULONG __stdcall AddRef();
 	virtual ULONG __stdcall Release();
 
@@ -29,7 +30,7 @@ public:
 		trace("Component1:: ");
 	}
 
-	~CA() 
+	~CA()
 	{
 		trace("CA: ~CA: Destroy self.");
 	}
@@ -42,13 +43,13 @@ HRESULT __stdcall CA::QueryInterface(const IID& iid, void **ppv)
 	{
 		trace("CA::QueryInterface Return ptr to IUnknown");
 		*ppv = static_cast<IX*>(this);
-	}	
+	}
 	else if (iid == IID_IX)
 	{
 		trace("CA::QueryInterface Return ptr to IX");
 		*ppv = static_cast<IX*>(this);
 	}
-	else 
+	else
 	{
 		trace("CA::QueryInterface Interface Requested not supported");
 		*ppv = NULL;
@@ -59,15 +60,15 @@ HRESULT __stdcall CA::QueryInterface(const IID& iid, void **ppv)
 	return S_OK;
 }
 
-ULONG __stdcall CA::AddRef() 
+ULONG __stdcall CA::AddRef()
 {
-	fprintf_s(gpFile,"CA::AddRef Refrence Count is %d",m_cRef+1);
+	fprintf_s(getFilePtr(), "CA::AddRef Refrence Count is %d\n\n", m_cRef + 1);
 	return InterlockedIncrement(&m_cRef);
 }
 
 ULONG __stdcall CA::Release()
 {
-	fprintf_s(gpFile, "CA::Release Refrence Count is %d", m_cRef - 1);
+	fprintf_s(getFilePtr(), "CA::Release Refrence Count is %d\n\n", m_cRef - 1);
 	if (InterlockedDecrement(&m_cRef) == 0)
 	{
 		delete(this);
@@ -80,7 +81,29 @@ ULONG __stdcall CA::Release()
 
 extern "C" IUnknown* CreateInstance()
 {
+	trace("Component1: Create Instance");
 	IUnknown* pIUnknown = static_cast<IX*>(new CA);
 	pIUnknown->AddRef();
 	return pIUnknown;
+}
+
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
+{
+	switch (ul_reason_for_call)
+	{
+	case DLL_PROCESS_ATTACH:
+		openLogFile("Component1.txt");
+		break;
+	case DLL_THREAD_ATTACH:
+		break;
+	case DLL_THREAD_DETACH:
+		break;
+	case DLL_PROCESS_DETACH:
+		CloseLogFile();
+		break;
+	}
+	return TRUE;
 }
